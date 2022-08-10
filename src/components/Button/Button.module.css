@@ -1,0 +1,31 @@
+.buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button {
+    padding: 15px 40px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+input[type="submit"] {
+    background-color: #feda00;
+}
+
+input[type="submit"]:hover {
+    background-color: #deac00;
+}
+
+input[type="reset"] {
+    color: #888888;
+    border: 2px solid #888888;
+    background-color: rgba(254, 218, 0, 0);
+}
+
+input[type="reset"]:hover {
+    color: #937d00;
+    border: 2px solid #937d00;
+}
