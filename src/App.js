@@ -47,11 +47,11 @@ class App extends React.Component {
         [name]: value
       }
     }), () => {
-      this.validateField(name, value)
+      this.validateFields(name, value)
     });
   }
 
-  validateField(fieldName, value) {
+  validateFields(fieldName, value) {
 
     if (fieldName === 'name' || fieldName === 'lastName') {
       if (value.charAt(0) !== value.charAt(0).toUpperCase()) {
@@ -182,19 +182,29 @@ class App extends React.Component {
 
   handleUserSubmit = (event) => {
     event.preventDefault();
-    if (this.validateForm()) {
-
-      this.setState((prevState) => ({
-        ...prevState,
-        formValid: true,
-      }))
+    const inputsInvalid = this.state.inputsInvalid;
+    for (let input in inputsInvalid ) {
+      if (this.validateForm() && !inputsInvalid[input]) {
+        this.setState((prevState) => ({
+          ...prevState,
+          formValid: true,
+        }))
+      } else {
+        this.setState((prevState) => ({
+          ...prevState,
+          formValid: false,
+        }))
+      }
     }
+
+
 
   }
 
   validateForm() {
     const input = this.state.inputs;
     let isValid = true;
+
     for (let fieldName in input) {
       if (!input[fieldName]) {
         isValid = false;
@@ -237,7 +247,7 @@ class App extends React.Component {
             <Form
               data={this.state}
               handleUserInput={this.handleUserInput}
-              validateField={this.validateField}
+              validateFields={this.validateFields}
               handleUserSubmit={this.handleUserSubmit}
               validateForm={this.validateForm}
               resetForm={this.resetForm}
