@@ -183,22 +183,19 @@ class App extends React.Component {
   handleUserSubmit = (event) => {
     event.preventDefault();
     const inputsInvalid = this.state.inputsInvalid;
-    for (let input in inputsInvalid ) {
-      if (this.validateForm() && !inputsInvalid[input]) {
-        this.setState((prevState) => ({
-          ...prevState,
-          formValid: true,
-        }))
-      } else {
-        this.setState((prevState) => ({
-          ...prevState,
-          formValid: false,
-        }))
-      }
+    const arr = Object.values(inputsInvalid).every(el => el === false);
+
+    if (this.validateForm() && arr) {
+      this.setState((prevState) => ({
+        ...prevState,
+        formValid: true,
+      }))
+    } else if(!arr) {
+      this.setState((prevState) => ({
+        ...prevState,
+        formValid: false,
+      }))
     }
-
-
-
   }
 
   validateForm() {
