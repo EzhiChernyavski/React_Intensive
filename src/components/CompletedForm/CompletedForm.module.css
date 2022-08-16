@@ -4,4 +4,21 @@
     padding: 30px 50px;
     border-radius: 10px;
     box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    text-align: start;
+}
+
+h3 {
+    color: #feda00;
+    margin-right: 20px;
+    width: 30%;
+}
+
+p {
+  width: 70%;
+}
+
+.fieldWrapper {
+    display: flex;
+    align-items: start;
 }
