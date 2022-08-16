@@ -1,31 +1,25 @@
-.buttonWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.button {
+button {
     padding: 15px 40px;
     border-radius: 8px;
     text-transform: uppercase;
     font-weight: 600;
 }
 
-input[type="submit"] {
+.buttonSave {
     background-color: #feda00;
 }
 
-input[type="submit"]:hover {
+.buttonSave:hover {
     background-color: #deac00;
 }
 
-input[type="reset"] {
+.buttonCancel {
     color: #888888;
     border: 2px solid #888888;
     background-color: rgba(254, 218, 0, 0);
 }
 
-input[type="reset"]:hover {
+.buttonCancel:hover {
     color: #937d00;
     border: 2px solid #937d00;
 }

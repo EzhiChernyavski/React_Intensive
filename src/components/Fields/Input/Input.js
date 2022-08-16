@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import style from '../Fields.module.css'
+import Error from "../../Error/Error";
 
 class Input extends Component {
-  //Т.к не добавляются никакие новые методы и переменные constructor можно не писать
   render() {
     return (
       <div className={style.wrapper}>
@@ -10,13 +10,14 @@ class Input extends Component {
           {this.props.label}
           <input
             className={style.input}
-            type={this.props.type}
-            name={this.props.name}
-            placeholder={this.props.placeholder}
+            {...this.props}
           />
         </label>
+        {
+          this.props.inputinvalid && <Error error={this.props.error}/>
+        }
       </div>
-    );
+    )
   }
 }
 

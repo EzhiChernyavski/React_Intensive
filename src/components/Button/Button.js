@@ -4,10 +4,13 @@ import style from './Button.module.css'
 class Button extends Component {
   render() {
     return (
-      <div className={style.buttonWrapper}>
-        <input className={style.button} type="submit" value="Save"/>
-        <input className={style.button} type="reset" value="Cancel"/>
-      </div>
+      <button
+        className={style[this.props.class]}
+        type={this.props.type}
+        onClick={this.props.reset}
+      >
+        {this.props.title}
+      </button>
     );
   }
 }
