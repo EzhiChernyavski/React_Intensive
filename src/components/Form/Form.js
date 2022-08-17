@@ -15,8 +15,8 @@ class Form extends Component {
             name='name'
             placeholder='Enter your name'
             value={this.props.data.inputs.name}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.name}
+            onChange={this.props.handleUserInput}
           />
           <Input
             label='Last name'
@@ -24,8 +24,8 @@ class Form extends Component {
             name='lastName'
             placeholder='Enter your last name'
             value={this.props.data.inputs.lastName}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.lastName}
+            onChange={this.props.handleUserInput}
           />
           <Input
             label='Date of birthday'
@@ -33,18 +33,18 @@ class Form extends Component {
             name='birthday'
             placeholder='Enter your date of birthday'
             value={this.props.data.inputs.birthday}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.birthday}
+            onChange={this.props.handleUserInput}
           />
           <Input
             label='Phone'
             type='tel'
             name='phone'
-            placeholder='7-7777-77-77'
-            maxLength='13'
+            placeholder='+7-7777-77-77'
+            maxLength='15'
             value={this.props.data.inputs.phone}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.phone}
+            onChange={this.props.handleUserInput}
           />
           <Input
             label='Web-site'
@@ -52,8 +52,8 @@ class Form extends Component {
             name='webSite'
             placeholder='Enter your web-site'
             value={this.props.data.inputs.webSite}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.webSite}
+            onChange={this.props.handleUserInput}
           />
           <Textarea
             label='About you'
@@ -61,9 +61,8 @@ class Form extends Component {
             rows={7}
             placeholder='Write some about you'
             value={this.props.data.inputs.aboutYou}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.aboutYou}
-            numchar={this.props.data.numChar.aboutYou}
+            onChange={this.props.handleUserInput}
           />
           <Textarea
             label='Technology stack'
@@ -71,9 +70,8 @@ class Form extends Component {
             rows={7}
             placeholder='Write your technology stack'
             value={this.props.data.inputs.technologyStack}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.technologyStack}
-            numchar={this.props.data.numChar.technologyStack}
+            onChange={this.props.handleUserInput}
           />
           <Textarea
             label='Descriptions of the latest projects'
@@ -81,9 +79,8 @@ class Form extends Component {
             rows={7}
             placeholder='Write some about your latest project'
             value={this.props.data.inputs.lastProject}
-            onChange={this.props.handleUserInput}
             error={this.props.data.errors.lastProject}
-            numchar={this.props.data.numChar.lastProject}
+            onChange={this.props.handleUserInput}
           />
           <div className={style.buttonWrapper}>
             <Button

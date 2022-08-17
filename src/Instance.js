@@ -10,10 +10,5 @@ export const initialFormState = {
     lastProject: '',
   },
   errors: {},
-  numChar: {
-    aboutYou: 0,
-    technologyStack: 0,
-    lastProject: 0,
-  },
   formValid: false,
 };
