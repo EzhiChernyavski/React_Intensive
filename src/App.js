@@ -1,4 +1,5 @@
 import React from 'react';
+import {initialFormState} from "./Instance";
 import './App.css';
 import Form from "./components/Form/Form";
 import CompletedForm from "./components/CompletedForm/CompletedForm";
@@ -6,36 +7,7 @@ import CompletedForm from "./components/CompletedForm/CompletedForm";
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      inputs: {
-        name: '',
-        lastName: '',
-        birthday: '',
-        phone: '',
-        webSite: '',
-        aboutYou: '',
-        technologyStack: '',
-        lastProject: '',
-      },
-      inputsInvalid: {
-        name: false,
-        lastName: false,
-        birthday: false,
-        phone: false,
-        webSite: false,
-        aboutYou: false,
-        technologyStack: false,
-        lastProject: false,
-      },
-      errors: {},
-      numChar: {
-        aboutYou: 0,
-        technologyStack: 0,
-        lastProject: 0,
-      },
-      formValid: false,
-    };
-    this.initialState = this.state;
+    this.state = initialFormState
   }
 
   handleUserInput = (event) => {
@@ -190,7 +162,7 @@ class App extends React.Component {
         ...prevState,
         formValid: true,
       }))
-    } else if(!arr) {
+    } else if (!arr) {
       this.setState((prevState) => ({
         ...prevState,
         formValid: false,
@@ -221,16 +193,9 @@ class App extends React.Component {
   }
 
   resetForm = () => {
-    const initialState = this.initialState
-    const obj = this.state;
-
-    for (let field in obj) {
-      this.setState((prevState) => ({
-        ...prevState,
-        [field]: initialState[field]
-      }))
-    }
+    this.setState({...initialFormState});
   }
+
 
   render() {
     return (
