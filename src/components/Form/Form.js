@@ -16,7 +16,6 @@ class Form extends Component {
             placeholder='Enter your name'
             value={this.props.data.inputs.name}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.name ? 1 : undefined}
             error={this.props.data.errors.name}
           />
           <Input
@@ -26,7 +25,6 @@ class Form extends Component {
             placeholder='Enter your last name'
             value={this.props.data.inputs.lastName}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.lastName ? 1 : undefined}
             error={this.props.data.errors.lastName}
           />
           <Input
@@ -36,7 +34,6 @@ class Form extends Component {
             placeholder='Enter your date of birthday'
             value={this.props.data.inputs.birthday}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.birthday ? 1 : undefined}
             error={this.props.data.errors.birthday}
           />
           <Input
@@ -47,7 +44,6 @@ class Form extends Component {
             maxLength='13'
             value={this.props.data.inputs.phone}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.phone ? 1 : undefined}
             error={this.props.data.errors.phone}
           />
           <Input
@@ -57,7 +53,6 @@ class Form extends Component {
             placeholder='Enter your web-site'
             value={this.props.data.inputs.webSite}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.webSite ? 1 : undefined}
             error={this.props.data.errors.webSite}
           />
           <Textarea
@@ -67,7 +62,6 @@ class Form extends Component {
             placeholder='Write some about you'
             value={this.props.data.inputs.aboutYou}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.aboutYou ? 1 : undefined}
             error={this.props.data.errors.aboutYou}
             numchar={this.props.data.numChar.aboutYou}
           />
@@ -78,7 +72,6 @@ class Form extends Component {
             placeholder='Write your technology stack'
             value={this.props.data.inputs.technologyStack}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.technologyStack ? 1 : undefined}
             error={this.props.data.errors.technologyStack}
             numchar={this.props.data.numChar.technologyStack}
           />
@@ -89,7 +82,6 @@ class Form extends Component {
             placeholder='Write some about your latest project'
             value={this.props.data.inputs.lastProject}
             onChange={this.props.handleUserInput}
-            inputinvalid={this.props.data.inputsInvalid.lastProject ? 1 : undefined}
             error={this.props.data.errors.lastProject}
             numchar={this.props.data.numChar.lastProject}
           />

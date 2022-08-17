@@ -9,16 +9,6 @@ export const initialFormState = {
     technologyStack: '',
     lastProject: '',
   },
-  inputsInvalid: {
-    name: false,
-    lastName: false,
-    birthday: false,
-    phone: false,
-    webSite: false,
-    aboutYou: false,
-    technologyStack: false,
-    lastProject: false,
-  },
   errors: {},
   numChar: {
     aboutYou: 0,

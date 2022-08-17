@@ -14,7 +14,7 @@ class Input extends Component {
           />
         </label>
         {
-          this.props.inputinvalid && <Error error={this.props.error}/>
+          this.props.error && <Error error={this.props.error}/>
         }
       </div>
     )

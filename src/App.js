@@ -31,17 +31,13 @@ class App extends React.Component {
           errors: {
             ...prevState.errors,
             [fieldName]: `Write your ${fieldName} with a capital letter`
-          },
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: true,
-          },
+          }
         }))
       } else {
         this.setState((prevState) => ({
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: false,
+          errors: {
+            ...prevState.errors,
+            [fieldName]: ``,
           },
         }))
       }
@@ -67,9 +63,9 @@ class App extends React.Component {
           ...prevState.inputs,
           [fieldName]: phoneFormatted,
         },
-        inputsInvalid: {
-          ...prevState.inputsInvalid,
-          [fieldName]: false,
+        errors: {
+          ...prevState.errors,
+          [fieldName]: ``,
         },
       }))
     }
@@ -77,9 +73,9 @@ class App extends React.Component {
     if (fieldName === 'birthday') {
       if (value.length > 0) {
         this.setState((prevState) => ({
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: false,
+          errors: {
+            ...prevState.errors,
+            [fieldName]: ``,
           },
         }))
       }
@@ -95,11 +91,7 @@ class App extends React.Component {
           errors: {
             ...prevState.errors,
             [fieldName]: `The URL must start with https://`
-          },
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: true,
-          },
+          }
         }))
       } else if (value.length > 7 && head === patternUrl) {
         this.setState((prevState) => ({
@@ -107,9 +99,9 @@ class App extends React.Component {
             ...prevState.inputs,
             [fieldName]: value,
           },
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: false,
+          errors: {
+            ...prevState.errors,
+            [fieldName]: ``
           },
         }))
       }
@@ -130,11 +122,7 @@ class App extends React.Component {
           errors: {
             ...prevState.errors,
             [fieldName]: `Exceeded the limit of characters in the field`
-          },
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: true,
-          },
+          }
         }))
       } else {
         this.setState((prevState) => ({
@@ -142,9 +130,9 @@ class App extends React.Component {
             ...prevState.numChar,
             [fieldName]: remains,
           },
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: false,
+          errors: {
+            ...prevState.errors,
+            [fieldName]: ``,
           },
         }))
       }
@@ -154,8 +142,8 @@ class App extends React.Component {
 
   handleUserSubmit = (event) => {
     event.preventDefault();
-    const inputsInvalid = this.state.inputsInvalid;
-    const arr = Object.values(inputsInvalid).every(el => el === false);
+    const errors = this.state.errors;
+    const arr = Object.values(errors).every(error => error === '');
 
     if (this.validateForm() && arr) {
       this.setState((prevState) => ({
@@ -171,21 +159,25 @@ class App extends React.Component {
   }
 
   validateForm() {
-    const input = this.state.inputs;
+    const inputs = this.state.inputs;
     let isValid = true;
 
-    for (let fieldName in input) {
-      if (!input[fieldName]) {
+    for (let fieldName in inputs) {
+      if (!inputs[fieldName]) {
         isValid = false;
         this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
             [fieldName]: `The field is empty. Please fill in.`
-          },
-          inputsInvalid: {
-            ...prevState.inputsInvalid,
-            [fieldName]: true,
-          },
+          }
+        }))
+      } else {
+        isValid = true;
+        this.setState((prevState) => ({
+          errors: {
+            ...prevState.errors,
+            [fieldName]: ``
+          }
         }))
       }
     }
@@ -193,6 +185,9 @@ class App extends React.Component {
   }
 
   resetForm = () => {
+    // this.setState(() => ({
+    //   ...initialFormState
+    // }));
     this.setState({...initialFormState});
   }
 
