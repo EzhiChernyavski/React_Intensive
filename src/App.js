@@ -2,26 +2,36 @@ import React, {useState} from 'react';
 import './App.css';
 import Form from "./components/Form/Form";
 import CompletedForm from "./components/CompletedForm/CompletedForm";
-import {initialFormState} from "./Instance";
+// import {initialFormState} from "./Instance";
 import {checkingForFirstCapitalizeLetter} from "./features/checkingForFirstCapitalizeLetter";
 import {checkingForNumberOfPhoneFormat} from './features/checkingForNumberOfPhoneFormat';
 import {checkingWebsiteLink} from './features/chekingWebsiteLink';
-import {checkingQuantityOfCharacters} from './features/checkingQuantityOfCharacters'
+import {checkingQuantityOfCharacters} from './features/checkingQuantityOfCharacters';
 
 
-
+const inputsInitial = {
+  name: '',
+  lastName: '',
+  birthday: '',
+  phone: '',
+  webSite: '',
+  aboutYou: '',
+  technologyStack: '',
+  lastProject: '',
+}
 
 function App() {
-  const [state, setState] = useState(initialFormState);
+
+  const [fields, setFields] = useState(inputsInitial);
+  const [errors, setErrors] = useState({});
+  const [formValid, setFormValid] = useState(false);
+  // const [state, setState] = useState(initialFormState);
 
   const handleUserInput = (event) => {
     const {name, value} = event.target;
-    setState((prevState) => ({
+    setFields((prevState) => ({
       ...prevState,
-      inputs: {
-        ...prevState.inputs,
-        [name]: value
-      }
+      [name]: value,
     }));
     validateFields(name, value)
   }
@@ -30,27 +40,21 @@ function App() {
 
     if (fieldName === 'name' || fieldName === 'lastName') {
       checkingForFirstCapitalizeLetter(value) ?
-        setState((prevState) => ({
+        setErrors((prevState) => ({
           ...prevState,
-          errors: {
-            ...prevState.errors, [fieldName]: `Write your ${fieldName} with a capital letter`
-          }
+          [fieldName]: `Write your ${fieldName} with a capital letter`
         })) :
-        setState((prevState) => ({
+        setErrors((prevState) => ({
           ...prevState,
-          errors: {
-            ...prevState.errors, [fieldName]: ``,
-          },
+          [fieldName]: ``,
         }))
     }
 
     if (fieldName === 'birthday') {
       if (value.length > 0) {
-        setState((prevState) => ({
+        setErrors((prevState) => ({
           ...prevState,
-          errors: {
-            ...prevState.errors, [fieldName]: ``,
-          },
+          [fieldName]: ``,
         }))
       }
     }
@@ -58,74 +62,68 @@ function App() {
     if (fieldName === 'phone') {
 
       const checkedNum = checkingForNumberOfPhoneFormat(value);
-      setState((prevState) => ({
+      setFields((prevState) => ({
         ...prevState,
-        inputs: {
-          ...prevState.inputs, [fieldName]: checkedNum,
-        }, errors: {
-          ...prevState.errors, [fieldName]: ``,
-        },
-      }))
+        [fieldName]: checkedNum,
+      }));
+
+      setErrors((prevState) => ({
+        ...prevState,
+        [fieldName]: ``,
+      }));
 
     }
 
     if (fieldName === 'webSite') {
 
       checkingWebsiteLink(value) ?
-        setState((prevState) => ({
-          ...prevState,
-          errors: {
-            ...prevState.errors, [fieldName]: `The URL must start with https://`
+        setErrors((prevState) => ({
+            ...prevState,
+            [fieldName]: `The URL must start with https://`,
           }
-        })) :
-        setState((prevState) => ({
+        )) :
+        setErrors((prevState) => ({
           ...prevState,
-          errors: {
-            ...prevState.errors, [fieldName]: ``
-          },
+          [fieldName]: ``,
         }))
     }
 
     if (fieldName === 'aboutYou' || fieldName === 'technologyStack' || fieldName === 'lastProject') {
 
-      setState((prevState) => ({
+      setErrors((prevState) => ({
         ...prevState,
-        errors: {
-          ...prevState.errors, [fieldName]: checkingQuantityOfCharacters(value)
-        }
+        [fieldName]: checkingQuantityOfCharacters(value),
       }))
     }
   }
 
   const handleUserSubmit = (event) => {
     event.preventDefault();
-    const arr = Object.values(state.errors).every(error => error === '');
-
+    const arr = Object.values(errors).every(error => error === '');
     if (validateForm() && arr) {
-      setState((prevState) => ({
+
+      setFormValid((prevState) => ({
         ...prevState,
-        ...prevState, formValid: true,
+        formValid: true,
       }))
     } else if (!arr) {
-      setState((prevState) => ({
+      setFormValid((prevState) => ({
         ...prevState,
-        ...prevState, formValid: false,
+        formValid: false,
       }))
     }
   };
 
   function validateForm() {
-    const inputs = state.inputs;
+    const inputs = fields;
     let isValid = true;
 
     for (let fieldName in inputs) {
       if (!inputs[fieldName]) {
         isValid = false;
-        setState((prevState) => ({
+        setErrors((prevState) => ({
           ...prevState,
-          errors: {
-            ...prevState.errors, [fieldName]: `The field is empty. Please fill in.`
-          }
+          [fieldName]: `The field is empty. Please fill in.`
         }))
       }
     }
@@ -133,21 +131,25 @@ function App() {
   }
 
   const resetForm = () => {
-    setState({...initialFormState});
+    setFields({...inputsInitial})
+    setErrors({errors});
+    setFormValid(false);
   }
 
   return (
     <div className="App">
-      {state.formValid ? <h1>{state.inputs.name} {state.inputs.lastName}</h1> :
-        <h1>Creating a form</h1>}
-      {state.formValid ? <CompletedForm data={state.inputs}/> : <Form
-        data={state}
-        handleUserInput={handleUserInput}
-        validateFields={validateFields}
-        handleUserSubmit={handleUserSubmit}
-        validateForm={validateForm}
-        resetForm={resetForm}
-      />}
+      {formValid ? <h1>{fields.name} {fields.lastName}</h1> : <h1>Creating a form</h1>}
+      {formValid ? <CompletedForm data={fields}/> :
+        <Form
+          fields={fields}
+          errors={errors}
+          formValid={formValid}
+          handleUserInput={handleUserInput}
+          validateFields={validateFields}
+          handleUserSubmit={handleUserSubmit}
+          validateForm={validateForm}
+          resetForm={resetForm}
+        />}
     </div>
   )
 }

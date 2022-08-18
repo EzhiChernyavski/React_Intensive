@@ -6,7 +6,6 @@ import Button from "../Button/Button";
 
 
 const Form = (props) => {
-
   return (
     <div className={style.wrapper}>
       <form onSubmit={props.handleUserSubmit}>
@@ -15,8 +14,8 @@ const Form = (props) => {
           type='text'
           name='name'
           placeholder='Enter your name'
-          value={props.data.inputs.name}
-          error={props.data.errors.name}
+          value={props.fields.name}
+          error={props.errors.name}
           onChange={props.handleUserInput}
         />
         <Input
@@ -24,8 +23,8 @@ const Form = (props) => {
           type='text'
           name='lastName'
           placeholder='Enter your last name'
-          value={props.data.inputs.lastName}
-          error={props.data.errors.lastName}
+          value={props.fields.lastName}
+          error={props.errors.lastName}
           onChange={props.handleUserInput}
         />
         <Input
@@ -33,8 +32,8 @@ const Form = (props) => {
           type='date'
           name='birthday'
           placeholder='Enter your date of birthday'
-          value={props.data.inputs.birthday}
-          error={props.data.errors.birthday}
+          value={props.fields.birthday}
+          error={props.errors.birthday}
           onChange={props.handleUserInput}
         />
         <Input
@@ -43,8 +42,8 @@ const Form = (props) => {
           name='phone'
           placeholder='+7-7777-77-77'
           maxLength='15'
-          value={props.data.inputs.phone}
-          error={props.data.errors.phone}
+          value={props.fields.phone}
+          error={props.errors.phone}
           onChange={props.handleUserInput}
         />
         <Input
@@ -52,8 +51,8 @@ const Form = (props) => {
           type='url'
           name='webSite'
           placeholder='Enter your web-site'
-          value={props.data.inputs.webSite}
-          error={props.data.errors.webSite}
+          value={props.fields.webSite}
+          error={props.errors.webSite}
           onChange={props.handleUserInput}
         />
         <Textarea
@@ -61,8 +60,8 @@ const Form = (props) => {
           name='aboutYou'
           rows={7}
           placeholder='Write some about you'
-          value={props.data.inputs.aboutYou}
-          error={props.data.errors.aboutYou}
+          value={props.fields.aboutYou}
+          error={props.errors.aboutYou}
           onChange={props.handleUserInput}
         />
         <Textarea
@@ -70,8 +69,8 @@ const Form = (props) => {
           name='technologyStack'
           rows={7}
           placeholder='Write your technology stack'
-          value={props.data.inputs.technologyStack}
-          error={props.data.errors.technologyStack}
+          value={props.fields.technologyStack}
+          error={props.errors.technologyStack}
           onChange={props.handleUserInput}
         />
         <Textarea
@@ -79,8 +78,8 @@ const Form = (props) => {
           name='lastProject'
           rows={7}
           placeholder='Write some about your latest project'
-          value={props.data.inputs.lastProject}
-          error={props.data.errors.lastProject}
+          value={props.fields.lastProject}
+          error={props.errors.lastProject}
           onChange={props.handleUserInput}
         />
         <div className={style.buttonWrapper}>
