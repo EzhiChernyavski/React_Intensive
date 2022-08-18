@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Error extends Component {
-  render() {
-    return (
-      <div style={{color: 'red'}}>
-        {this.props.error}
-      </div>
-    );
-  }
+const Error = (props) => {
+  return (
+    <div style={{color: 'red'}}>
+      {props.error}
+    </div>
+
+  )
 }
 
 export default Error;

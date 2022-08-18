@@ -1,41 +1,43 @@
-import React from 'react';
-import {initialFormState} from "./Instance";
+import React, {useState} from 'react';
 import './App.css';
 import Form from "./components/Form/Form";
 import CompletedForm from "./components/CompletedForm/CompletedForm";
+import {initialFormState} from "./Instance";
 import {checkingForFirstCapitalizeLetter} from "./features/checkingForFirstCapitalizeLetter";
 import {checkingForNumberOfPhoneFormat} from './features/checkingForNumberOfPhoneFormat';
 import {checkingWebsiteLink} from './features/chekingWebsiteLink';
 import {checkingQuantityOfCharacters} from './features/checkingQuantityOfCharacters'
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = initialFormState
-  }
 
-  handleUserInput = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState((prevState) => ({
+
+
+function App() {
+  const [state, setState] = useState(initialFormState);
+
+  const handleUserInput = (event) => {
+    const {name, value} = event.target;
+    setState((prevState) => ({
+      ...prevState,
       inputs: {
-        ...prevState.inputs, [name]: value
+        ...prevState.inputs,
+        [name]: value
       }
-    }), () => {
-      this.validateFields(name, value)
-    });
+    }));
+    validateFields(name, value)
   }
 
-  validateFields(fieldName, value) {
+  function validateFields(fieldName, value) {
 
     if (fieldName === 'name' || fieldName === 'lastName') {
       checkingForFirstCapitalizeLetter(value) ?
-        this.setState((prevState) => ({
+        setState((prevState) => ({
+          ...prevState,
           errors: {
             ...prevState.errors, [fieldName]: `Write your ${fieldName} with a capital letter`
           }
         })) :
-        this.setState((prevState) => ({
+        setState((prevState) => ({
+          ...prevState,
           errors: {
             ...prevState.errors, [fieldName]: ``,
           },
@@ -44,7 +46,8 @@ class App extends React.Component {
 
     if (fieldName === 'birthday') {
       if (value.length > 0) {
-        this.setState((prevState) => ({
+        setState((prevState) => ({
+          ...prevState,
           errors: {
             ...prevState.errors, [fieldName]: ``,
           },
@@ -55,7 +58,8 @@ class App extends React.Component {
     if (fieldName === 'phone') {
 
       const checkedNum = checkingForNumberOfPhoneFormat(value);
-      this.setState((prevState) => ({
+      setState((prevState) => ({
+        ...prevState,
         inputs: {
           ...prevState.inputs, [fieldName]: checkedNum,
         }, errors: {
@@ -68,12 +72,14 @@ class App extends React.Component {
     if (fieldName === 'webSite') {
 
       checkingWebsiteLink(value) ?
-        this.setState((prevState) => ({
+        setState((prevState) => ({
+          ...prevState,
           errors: {
             ...prevState.errors, [fieldName]: `The URL must start with https://`
           }
         })) :
-        this.setState((prevState) => ({
+        setState((prevState) => ({
+          ...prevState,
           errors: {
             ...prevState.errors, [fieldName]: ``
           },
@@ -82,37 +88,41 @@ class App extends React.Component {
 
     if (fieldName === 'aboutYou' || fieldName === 'technologyStack' || fieldName === 'lastProject') {
 
-      this.setState((prevState) => ({
+      setState((prevState) => ({
+        ...prevState,
         errors: {
           ...prevState.errors, [fieldName]: checkingQuantityOfCharacters(value)
         }
       }))
     }
-  };
+  }
 
-  handleUserSubmit = (event) => {
+  const handleUserSubmit = (event) => {
     event.preventDefault();
-    const arr = Object.values(this.state.errors).every(error => error === '');
+    const arr = Object.values(state.errors).every(error => error === '');
 
-    if (this.validateForm() && arr) {
-      this.setState((prevState) => ({
+    if (validateForm() && arr) {
+      setState((prevState) => ({
+        ...prevState,
         ...prevState, formValid: true,
       }))
     } else if (!arr) {
-      this.setState((prevState) => ({
+      setState((prevState) => ({
+        ...prevState,
         ...prevState, formValid: false,
       }))
     }
-  }
+  };
 
-  validateForm() {
-    const inputs = this.state.inputs;
+  function validateForm() {
+    const inputs = state.inputs;
     let isValid = true;
 
     for (let fieldName in inputs) {
       if (!inputs[fieldName]) {
         isValid = false;
-        this.setState((prevState) => ({
+        setState((prevState) => ({
+          ...prevState,
           errors: {
             ...prevState.errors, [fieldName]: `The field is empty. Please fill in.`
           }
@@ -122,25 +132,24 @@ class App extends React.Component {
     return isValid;
   }
 
-  resetForm = () => {
-    this.setState({...initialFormState});
+  const resetForm = () => {
+    setState({...initialFormState});
   }
 
-
-  render() {
-    return (<div className="App">
-      {this.state.formValid ? <h1>{this.state.inputs.name} {this.state.inputs.lastName}</h1> :
+  return (
+    <div className="App">
+      {state.formValid ? <h1>{state.inputs.name} {state.inputs.lastName}</h1> :
         <h1>Creating a form</h1>}
-      {this.state.formValid ? <CompletedForm data={this.state.inputs}/> : <Form
-        data={this.state}
-        handleUserInput={this.handleUserInput}
-        validateFields={this.validateFields}
-        handleUserSubmit={this.handleUserSubmit}
-        validateForm={this.validateForm}
-        resetForm={this.resetForm}
+      {state.formValid ? <CompletedForm data={state.inputs}/> : <Form
+        data={state}
+        handleUserInput={handleUserInput}
+        validateFields={validateFields}
+        handleUserSubmit={handleUserSubmit}
+        validateForm={validateForm}
+        resetForm={resetForm}
       />}
-    </div>)
-  }
+    </div>
+  )
 }
 
 export default App;
