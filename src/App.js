@@ -126,7 +126,7 @@ const App = () => {
   }
 
   const resetForm = () => {
-    setState({...initialFormState});
+    setState({initialFormState});
   }
 
   return (
