@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Form from "./components/Form/Form";
 import CompletedForm from "./components/CompletedForm/CompletedForm";
@@ -8,8 +8,6 @@ import {checkingForFirstCapitalizeLetter} from "./features/checkingForFirstCapit
 import {checkingForNumberOfPhoneFormat} from './features/checkingForNumberOfPhoneFormat';
 import {checkingWebsiteLink} from './features/chekingWebsiteLink';
 import {checkingQuantityOfCharacters} from './features/checkingQuantityOfCharacters'
-
-
 
 
 function App() {
@@ -28,6 +26,10 @@ function App() {
     validateFields(name, value)
   }
 
+  useEffect(() => {
+    console.log(state)
+  }, [state])
+
   function validateFields(fieldName, value) {
 
     if (fieldName === 'name' || fieldName === 'lastName') {
@@ -35,13 +37,15 @@ function App() {
         setState((prevState) => ({
           ...prevState,
           errors: {
-            ...prevState.errors, [fieldName]: `Write your ${fieldName} with a capital letter`
+            ...prevState.errors,
+            [fieldName]: `Write your ${fieldName} with a capital letter`
           }
         })) :
         setState((prevState) => ({
           ...prevState,
           errors: {
-            ...prevState.errors, [fieldName]: ``,
+            ...prevState.errors,
+            [fieldName]: ``,
           },
         }))
     }
@@ -51,7 +55,8 @@ function App() {
         setState((prevState) => ({
           ...prevState,
           errors: {
-            ...prevState.errors, [fieldName]: ``,
+            ...prevState.errors,
+            [fieldName]: ``,
           },
         }))
       }
@@ -63,9 +68,11 @@ function App() {
       setState((prevState) => ({
         ...prevState,
         inputs: {
-          ...prevState.inputs, [fieldName]: checkedNum,
+          ...prevState.inputs,
+          [fieldName]: checkedNum,
         }, errors: {
-          ...prevState.errors, [fieldName]: ``,
+          ...prevState.errors,
+          [fieldName]: ``,
         },
       }))
 
@@ -77,13 +84,15 @@ function App() {
         setState((prevState) => ({
           ...prevState,
           errors: {
-            ...prevState.errors, [fieldName]: `The URL must start with https://`
+            ...prevState.errors,
+            [fieldName]: `The URL must start with https://`
           }
         })) :
         setState((prevState) => ({
           ...prevState,
           errors: {
-            ...prevState.errors, [fieldName]: ``
+            ...prevState.errors,
+            [fieldName]: ``
           },
         }))
     }
@@ -93,7 +102,8 @@ function App() {
       setState((prevState) => ({
         ...prevState,
         errors: {
-          ...prevState.errors, [fieldName]: checkingQuantityOfCharacters(value)
+          ...prevState.errors,
+          [fieldName]: checkingQuantityOfCharacters(value)
         }
       }))
     }
@@ -101,18 +111,18 @@ function App() {
 
   const handleUserSubmit = (event) => {
     event.preventDefault();
-    const arr = Object.values(state.errors).every(error => error === '');
+    const isErrorNotExist = Object.values(state.errors).every(error => error === '');
 
-    if (validateForm() && arr) {
+    if (validateForm() && isErrorNotExist) {
       setState((prevState) => ({
         ...prevState,
-        ...prevState, formValid: true,
+        formValid: true,
       }))
       setIsShowPopUp(true);
-    } else if (!arr) {
+    } else if (!isErrorNotExist) {
       setState((prevState) => ({
         ...prevState,
-        ...prevState, formValid: false,
+        formValid: false,
       }))
     }
   };
@@ -127,7 +137,8 @@ function App() {
         setState((prevState) => ({
           ...prevState,
           errors: {
-            ...prevState.errors, [fieldName]: `The field is empty. Please fill in.`
+            ...prevState.errors,
+            [fieldName]: `The field is empty. Please fill in.`
           }
         }))
       }
@@ -145,13 +156,13 @@ function App() {
         <h1>Creating a form</h1>}
       {state.formValid ? <CompletedForm data={state.inputs}/> :
         <Form
-        data={state}
-        handleUserInput={handleUserInput}
-        validateFields={validateFields}
-        handleUserSubmit={handleUserSubmit}
-        validateForm={validateForm}
-        resetForm={resetForm}
-      />}
+          data={state}
+          handleUserInput={handleUserInput}
+          validateFields={validateFields}
+          handleUserSubmit={handleUserSubmit}
+          validateForm={validateForm}
+          resetForm={resetForm}
+        />}
       <Notification isShowPopUp={isShowPopUp} setIsShowPopUp={setIsShowPopUp}/>
     </div>
   )
