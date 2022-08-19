@@ -5,8 +5,6 @@ export function checkingWebsiteLink (value) {
 
   if (arr.length >= 8) {
     head = arr.slice(0, 8).join('');
-    return head !== patternUrl
+    return head !== patternUrl ? `The URL must start with https://` : ``
   }
-
-  return head;
 }

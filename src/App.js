@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Form from "./components/Form/Form";
 import CompletedForm from "./components/CompletedForm/CompletedForm";
@@ -10,7 +10,7 @@ import {checkingWebsiteLink} from './features/chekingWebsiteLink';
 import {checkingQuantityOfCharacters} from './features/checkingQuantityOfCharacters'
 
 
-function App() {
+const App = () => {
   const [state, setState] = useState(initialFormState);
   const [isShowPopUp, setIsShowPopUp] = useState(false)
 
@@ -29,21 +29,13 @@ function App() {
   function validateFields(fieldName, value) {
 
     if (fieldName === 'name' || fieldName === 'lastName') {
-      checkingForFirstCapitalizeLetter(value) ?
-        setState((prevState) => ({
-          ...prevState,
-          errors: {
-            ...prevState.errors,
-            [fieldName]: `Write your ${fieldName} with a capital letter`
-          }
-        })) :
-        setState((prevState) => ({
-          ...prevState,
-          errors: {
-            ...prevState.errors,
-            [fieldName]: ``,
-          },
-        }))
+      setState((prevState) => ({
+        ...prevState,
+        errors: {
+          ...prevState.errors,
+          [fieldName]: checkingForFirstCapitalizeLetter(fieldName, value)
+        }
+      }))
     }
 
     if (fieldName === 'birthday') {
@@ -75,22 +67,13 @@ function App() {
     }
 
     if (fieldName === 'webSite') {
-
-      checkingWebsiteLink(value) ?
-        setState((prevState) => ({
-          ...prevState,
-          errors: {
-            ...prevState.errors,
-            [fieldName]: `The URL must start with https://`
-          }
-        })) :
-        setState((prevState) => ({
-          ...prevState,
-          errors: {
-            ...prevState.errors,
-            [fieldName]: ``
-          },
-        }))
+      setState((prevState) => ({
+        ...prevState,
+        errors: {
+          ...prevState.errors,
+          [fieldName]: checkingWebsiteLink(value)
+        }
+      }))
     }
 
     if (fieldName === 'aboutYou' || fieldName === 'technologyStack' || fieldName === 'lastProject') {

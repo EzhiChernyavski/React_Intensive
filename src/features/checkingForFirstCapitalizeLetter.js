@@ -1,3 +1,4 @@
-export function checkingForFirstCapitalizeLetter (value) {
-  return value.charAt(0)!== value.charAt(0).toUpperCase();
+export function checkingForFirstCapitalizeLetter(fieldName, value) {
+  return value.charAt(0) !== value.charAt(0).toUpperCase() ?
+    `Write your ${fieldName} with a capital letter` : ``;
 }
