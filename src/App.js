@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Form from "./components/Form/Form";
 import CompletedForm from "./components/CompletedForm/CompletedForm";
@@ -25,10 +25,6 @@ function App() {
     }));
     validateFields(name, value)
   }
-
-  useEffect(() => {
-    console.log(state)
-  }, [state])
 
   function validateFields(fieldName, value) {
 
