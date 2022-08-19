@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Form from "./components/Form/Form";
 import CompletedForm from "./components/CompletedForm/CompletedForm";
+import Notification from "./components/Notification/Notification";
 import {initialFormState} from "./Instance";
 import {checkingForFirstCapitalizeLetter} from "./features/checkingForFirstCapitalizeLetter";
 import {checkingForNumberOfPhoneFormat} from './features/checkingForNumberOfPhoneFormat';
@@ -13,6 +14,7 @@ import {checkingQuantityOfCharacters} from './features/checkingQuantityOfCharact
 
 function App() {
   const [state, setState] = useState(initialFormState);
+  const [isShowPopUp, setIsShowPopUp] = useState(false)
 
   const handleUserInput = (event) => {
     const {name, value} = event.target;
@@ -106,6 +108,7 @@ function App() {
         ...prevState,
         ...prevState, formValid: true,
       }))
+      setIsShowPopUp(true);
     } else if (!arr) {
       setState((prevState) => ({
         ...prevState,
@@ -140,7 +143,8 @@ function App() {
     <div className="App">
       {state.formValid ? <h1>{state.inputs.name} {state.inputs.lastName}</h1> :
         <h1>Creating a form</h1>}
-      {state.formValid ? <CompletedForm data={state.inputs}/> : <Form
+      {state.formValid ? <CompletedForm data={state.inputs}/> :
+        <Form
         data={state}
         handleUserInput={handleUserInput}
         validateFields={validateFields}
@@ -148,6 +152,7 @@ function App() {
         validateForm={validateForm}
         resetForm={resetForm}
       />}
+      <Notification isShowPopUp={isShowPopUp} setIsShowPopUp={setIsShowPopUp}/>
     </div>
   )
 }

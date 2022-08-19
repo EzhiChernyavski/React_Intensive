@@ -13,3 +13,8 @@ h1 {
   color: #feda00;
   text-transform: uppercase;
 }
+
+#notification {
+  position: relative;
+  width: 100%;
+}

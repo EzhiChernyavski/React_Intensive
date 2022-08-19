@@ -5,21 +5,21 @@ button {
     font-weight: 600;
 }
 
-.buttonSave {
+.buttonYellow {
     background-color: #feda00;
 }
 
-.buttonSave:hover {
+.buttonYellow:hover {
     background-color: #deac00;
 }
 
-.buttonCancel {
+.buttonOpacity {
     color: #888888;
     border: 2px solid #888888;
     background-color: rgba(254, 218, 0, 0);
 }
 
-.buttonCancel:hover {
+.buttonOpacity:hover {
     color: #937d00;
     border: 2px solid #937d00;
 }

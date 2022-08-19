@@ -1,0 +1,21 @@
+.notification {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 320px;
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+    margin: 0 auto 25px auto;
+    padding: 30px 20px;
+    border-radius: 12px;
+    background: #333;
+    color: #FFF;
+}
+
+.notification p {
+    font-size: 16px;
+    margin-bottom: 10px;
+
+}
+

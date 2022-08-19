@@ -6,7 +6,7 @@ const Button = (props) => {
     <button
       className={style[props.class]}
       type={props.type}
-      onClick={props.reset}
+      onClick={props.action}
     >
       {props.title}
     </button>

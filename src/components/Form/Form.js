@@ -85,15 +85,15 @@ const Form = (props) => {
         />
         <div className={style.buttonWrapper}>
           <Button
-            class='buttonSave'
+            class='buttonYellow'
             title='Save'
             type='submit'
           />
           <Button
-            class='buttonCancel'
+            class='buttonOpacity'
             title='Cancel'
             type='reset'
-            reset={props.resetForm}
+            action={props.resetForm}
           />
         </div>
       </form>
