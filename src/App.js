@@ -33,7 +33,7 @@ function App() {
       ...prevState,
       [name]: value,
     }));
-    validateFields(name, value)
+    validateFields(name, value);
   }
 
   function validateFields(fieldName, value) {
@@ -99,18 +99,11 @@ function App() {
 
   const handleUserSubmit = (event) => {
     event.preventDefault();
-    const arr = Object.values(errors).every(error => error === '');
-    if (validateForm() && arr) {
-
-      setFormValid((prevState) => ({
-        ...prevState,
-        formValid: true,
-      }))
-    } else if (!arr) {
-      setFormValid((prevState) => ({
-        ...prevState,
-        formValid: false,
-      }))
+    const isErrorNotExist = Object.values(errors).every(error => error === '');
+    if (validateForm() && isErrorNotExist) {
+      setFormValid(true)
+    } else if (!isErrorNotExist) {
+      setFormValid( false)
     }
   };
 
@@ -132,9 +125,10 @@ function App() {
 
   const resetForm = () => {
     setFields({...inputsInitial})
-    setErrors({errors});
+    setErrors({});
     setFormValid(false);
   }
+
 
   return (
     <div className="App">
